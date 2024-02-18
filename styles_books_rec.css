@@ -1,5 +1,5 @@
 body{
-    background-color:black;
+    background-color:white;
 }
 .album{
     width: 220px;
@@ -10,7 +10,7 @@ body{
 }
 #name_album{
     font-size: 10px;
-    color:white;
+    color:black;
     word-wrap: normal;
 
 }
@@ -59,7 +59,8 @@ backdrop-filter: blur(5px);
 }
 
 .image__overlay--primary {
-background:black ;
+background:white;
+color: black;
 }
 
 .image__overlay2--primary {

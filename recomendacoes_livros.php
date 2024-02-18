@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +10,7 @@
    
 
 
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="styles_books_rec.css">
 
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -31,7 +30,7 @@
     <center>
     <div class="container">
     <!-- Botão Bootstrap para redirecionar para o formulário -->
-    <a href="formulario.html" class="btn btn-primary">Criar Recomendação</a>
+    <a href="form_book.html" class="btn btn-primary">Criar Recomendação</a>
 </div>
 
 </center>
@@ -44,7 +43,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "recomendacoes";
+    $dbname = "recomendacoes_livros";
 
     // Crie uma conexão
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -55,7 +54,7 @@
     }
 
     // Consulta SQL para obter as recomendações do banco de dados
-    $sql = "SELECT * FROM recomendacoes ORDER BY id DESC;";
+    $sql = "SELECT * FROM recomendacoes_livros ORDER BY id DESC;";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -65,20 +64,20 @@
             $user = $row["usuario"];
             $desc = $row["descricao"];
             $album_image_src = $row["img"];
-            $reclink_deezer = $row["reclink"];
-            $spotify_reclink = $row["reclink_spotify"];
+
+            $reclink = $row["reclink"];
+          
 
             // Saída HTML dinâmica com os dados do banco de dados
                 echo '<div class="album">';
                 echo '<p class="teste"><a href=""><img src="' . $album_image_src . '" width="200" height="200"></a></p>';
 
                 echo '<span id="name_album">' . $album_name . '</span>';
-                echo '<p style="color:white;">Recomendado por <a class="reference" href="">' . $user . '</a></p>';
+                echo '<p style="color:black;">Recomendado por <a class="reference" href="">' . $user . '</a></p>';
                 echo '<center>';
                 echo '<div class="icons2">';
-                echo '<a href="' . $spotify_reclink . '"><img src="spotify.png"></a>';
+                echo '<a href="' . $reclink . '"><img src="google_icon.png" width="50" height="50"></a>';
               
-                echo '<a href="' . $reclink_deezer . '"><img src="deezer_f.png"></a>';
                 echo '</div>';
                 echo '</center>';
                 echo '<br>';
