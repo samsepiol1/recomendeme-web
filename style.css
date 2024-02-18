@@ -1,0 +1,94 @@
+body{
+    background-color:black;
+}
+
+h1{
+color: white;
+}
+.album{
+    width: 220px;
+    position: relative;
+    margin:0 auto;
+    line-height: 1.4em;
+    display: inline-block;
+}
+#name_album{
+    font-size: 10px;
+    color:white;
+    word-wrap: normal;
+
+}
+.checked {
+    color: orange;  
+}
+.icons2{
+  width: 220px;
+    position: relative;
+    margin:0 auto;
+    line-height: 1.4em;
+    display: inline-block;
+
+}
+.image {
+    width: 200px;
+    position: relative;
+    margin:0 auto;
+    line-height: 1.4em;
+    display: inline-block;
+}
+
+.image__img {
+display: block;
+}
+
+.image__overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 200px;
+height: 200px;
+background: rgba(0, 0, 0, 0.6);
+color: #ffffff;
+font-family: 'Quicksand', sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transition: opacity 0.30s;
+}
+
+.image__overlay--blur {
+backdrop-filter: blur(5px);
+}
+
+.image__overlay--primary {
+background:black ;
+}
+
+.image__overlay2--primary {
+background: red;
+}
+
+.image__overlay > * {
+transform: translateY(20px);
+transition: transform 0.25s;
+}
+
+.image__overlay:hover {
+opacity: 1;
+}
+
+.image__overlay:hover > * {
+transform: translateY(0);
+}
+
+.image__title {
+font-size: 1em;
+font-weight: bold;
+}
+
+.image__description {
+font-size: 14px;
+margin-top: 0.25em;
+}
