@@ -17,6 +17,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+
 // Função para obter o token de acesso do Spotify
 function getSpotifyAccessToken($client_id, $client_secret) {
     $auth_url = 'https://accounts.spotify.com/api/token';
@@ -66,6 +68,27 @@ function getSpotifyAlbumLink($access_token, $artist_name, $album_name) {
     }
 }
 
+
+function getSpotifyAlbumImage($access_token, $artist_name, $album_name) {
+    $spotify_url = "https://api.spotify.com/v1/search?q=" . urlencode("artist:$artist_name album:$album_name") . "&type=album&limit=1";
+    $spotify_options = array(
+        'http' => array(
+            'method' => 'GET',
+            'header' => "Authorization: Bearer $access_token"
+        )
+    );
+
+    $spotify_context = stream_context_create($spotify_options);
+    $spotify_result = file_get_contents($spotify_url, false, $spotify_context);
+    $spotify_response = json_decode($spotify_result, true);
+
+    if (isset($spotify_response['albums']['items'][0]['images'][0]['url'])) {
+        return $spotify_response['albums']['items'][0]['images'][0]['url'];
+    } else {
+        return false;
+    }
+}
+
 // Função para buscar o link do álbum no Deezer
 function getDeezerAlbumLink($artist_name, $album_name) {
     $deezer_url = "https://api.deezer.com/search/album/?q=" . urlencode("$artist_name - $album_name") . "&limit=1";
@@ -79,17 +102,17 @@ function getDeezerAlbumLink($artist_name, $album_name) {
     }
 }
 
+
+
+
 // Verifica se os dados do formulário foram enviados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Dados do formulário
     $titulo = $_POST['titulo'];
     $usuario = $_POST['usuario'];
     $descricao = $_POST['descricao'];
-    $img = $_POST['img'];
-    $created_at = $_POST['created_at'];
-    $updated_at = $_POST['updated_at'];
-    $reclink = $_POST['reclink'];
 
+    
     // Separa o título em nome do artista e nome do álbum
     list($artist_name, $album_name) = explode(" - ", $titulo, 2);
 
@@ -105,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Link do álbum não encontrado no Spotify.";
     } else {
         // Construa e execute a consulta SQL para inserir os dados no banco de dados
-        $sql = "INSERT INTO recomendacoes (titulo, usuario, descricao, img, created_at, updated_at, reclink) VALUES ('$titulo', '$usuario', '$descricao', '$img', '$created_at', '$updated_at', '$reclink')";
+        $sql = "INSERT INTO recomendacoes (titulo, usuario, descricao) VALUES ('$titulo', '$usuario', '$descricao')";
         
         if ($conn->query($sql) === TRUE) {
             echo "Dados inseridos com sucesso!";
@@ -122,6 +145,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+
+
+    $spotify_album_image = getSpotifyAlbumImage($spotify_access_token, $artist_name, $album_name);
+
+    if (!$spotify_album_image) {
+        echo "Imagem do álbum não encontrada no Spotify.";
+    } else {
+        // Construa e execute a consulta SQL para atualizar a coluna 'img' na tabela 'recomendacoes'
+        $update_sql = "UPDATE recomendacoes SET img = '$spotify_album_image' WHERE titulo = '$titulo'";
+        
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Imagem do álbum do Spotify salva com sucesso no banco de dados!";
+        } else {
+            echo "Erro ao salvar a imagem do álbum do Spotify no banco de dados: " . $conn->error;
+        }
+    }
+
     // Obtém o link do álbum no Deezer
     $deezer_album_link = getDeezerAlbumLink($artist_name, $album_name);
     if (!$deezer_album_link) {
@@ -135,5 +175,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Erro ao salvar o link do álbum do Deezer no banco de dados: " . $conn->error;
         }
     }
+
+
 }
+
 ?>
