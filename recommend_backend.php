@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $descricao = $_POST['descricao'];
 
-    
+
     // Separa o título em nome do artista e nome do álbum
     list($artist_name, $album_name) = explode(" - ", $titulo, 2);
 
@@ -178,5 +178,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 }
+
+header("Location: recomendacoes.php");
+exit;
 
 ?>

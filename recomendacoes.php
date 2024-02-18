@@ -26,7 +26,18 @@
 <body>
     <center><h1>RecomendeMe.com.br</h1></center>
     <br>
-    <br>
+   
+
+    <center>
+    <div class="container">
+    <!-- Botão Bootstrap para redirecionar para o formulário -->
+    <a href="formulario.html" class="btn btn-primary">Criar Recomendação</a>
+</div>
+
+</center>
+
+<br>
+<br>
 
     <?php
     // Conexão com o banco de dados (substitua os valores conforme necessário)
@@ -44,7 +55,7 @@
     }
 
     // Consulta SQL para obter as recomendações do banco de dados
-    $sql = "SELECT * FROM recomendacoes";
+    $sql = "SELECT * FROM recomendacoes ORDER BY id DESC;";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

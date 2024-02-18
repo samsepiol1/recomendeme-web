@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="style2.css">
+    
+   <title>Recomende</title>
+</head>
+<body>
+   <div class="container">
+       <header>
+           <h1 id='title'>RecomendeMe.com.br</h1>
+           <p id='description'>
+               Somos gratos por sua recomendação, pois é ela que mantém a plataforma :D
+           </p>
+       </header>
+
+       <form id='survey-form' method="post" action="recommend_backend.php" >
+           <div class='form-input'>
+               <label id='name-label'>Username</label>
+               <input type='text' id='titulo' placeholder='Seu Username' name= 'usuario' class='form-input-size' required />
+           </div>
+           <div class='form-input'>
+               <label id='email-label'>Álbum</label>
+               <input type='text' id='usuario' placeholder='Coloque o nome da banda e álbum' name='titulo'class='form-input-size' required />
+           </div>
+
+
+           <div class='form-input'>
+               <p>O que você pensa sobre esse álbum ?  </p>
+               <textarea type='text' name= "descricao" placeholder='Deixe um comentário sobre a sua recomendação'></textarea>
+           </div>
+
+           <div class='form-input'>
+               <button type='submit' id='submit'>Submit</button>
+           </div>
+       </form>
+   </div>
+
+</body>
+</html>
