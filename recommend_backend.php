@@ -1,13 +1,13 @@
 <?php
 // Credenciais do Spotify
-$client_id = '22d4b6997d4b4d6faf63ab9d78278fd5';
-$client_secret = '8074223b87354205b8c5946589d9aa73';
+$client_id = '';
+$client_secret = '';
 
 // Conexão com o banco de dados (substitua os valores conforme necessário)
-$servername = "localhost";
-$username = "root";
+$servername = "";
+$username = "";
 $password = "";
-$dbname = "recomendacoes";
+$dbname = "";
 
 // Crie uma conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
