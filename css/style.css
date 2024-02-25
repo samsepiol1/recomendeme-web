@@ -1,6 +1,10 @@
 body{
     background-color:black;
+    color:white;
 }
+
+
+
 .album{
     width: 220px;
     position: relative;

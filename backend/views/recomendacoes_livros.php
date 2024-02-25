@@ -10,7 +10,8 @@
    
 
 
-	<link rel="stylesheet" href="styles_books_rec.css">
+	<link rel="stylesheet" href="../../css/styles_books_rec.css">
+
 
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -30,7 +31,7 @@
     <center>
     <div class="container">
     <!-- Botão Bootstrap para redirecionar para o formulário -->
-    <a href="form_book.html" class="btn btn-primary">Criar Recomendação</a>
+    <a href="../../form_book.html" class="btn btn-primary">Criar Recomendação</a>
 </div>
 
 </center>
@@ -38,12 +39,9 @@
 <br>
 <br>
 
-    <?php
+<?php
     // Conexão com o banco de dados (substitua os valores conforme necessário)
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "recomendacoes_livros";
+    require_once(__DIR__ . '/../db/config.php');
 
     // Crie uma conexão
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -55,45 +53,47 @@
 
     // Consulta SQL para obter as recomendações do banco de dados
     $sql = "SELECT * FROM recomendacoes_livros ORDER BY id DESC;";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         // Saída dos dados de cada linha
         while($row = $result->fetch_assoc()) {
-            $album_name = $row["titulo"];
-            $user = $row["usuario"];
-            $desc = $row["descricao"];
-            $album_image_src = $row["img"];
+            $album_name = htmlspecialchars($row["titulo"]);
+            $user = htmlspecialchars($row["usuario"]);
+            $desc = htmlspecialchars($row["descricao"]);
+            $album_image_src = htmlspecialchars($row["img"]);
 
-            $reclink = $row["reclink"];
-          
+            $reclink = htmlspecialchars($row["reclink"]);
 
             // Saída HTML dinâmica com os dados do banco de dados
-                echo '<div class="album">';
-                echo '<p class="teste"><a href=""><img src="' . $album_image_src . '" width="200" height="200"></a></p>';
+            echo '<div class="album">';
+            echo '<p class="teste"><a href=""><img src="' . $album_image_src . '" width="200" height="200"></a></p>';
 
-                echo '<span id="name_album">' . $album_name . '</span>';
-                echo '<p style="color:black;">Recomendado por <a class="reference" href="">' . $user . '</a></p>';
-                echo '<center>';
-                echo '<div class="icons2">';
-                echo '<a href="' . $reclink . '"><img src="google_icon.png" width="50" height="50"></a>';
-              
-                echo '</div>';
-                echo '</center>';
-                echo '<br>';
-                echo '<br>';
-                echo '<br>';
-                echo '<div class="image__overlay image__overlay--primary">';
-                echo '<div class="image__title">@' . $user . '</div>';
-                echo '<p class="image__description">' . $desc . '</p>';
-                echo '</div>';
-                echo '</div>';
+            echo '<span id="name_album">' . $album_name . '</span>';
+            echo '<p style="color:black;">Recomendado por <a class="reference" href="">' . $user . '</a></p>';
+            echo '<center>';
+            echo '<div class="icons2">';
+            echo '<a href="' . $reclink . '"><img src="../../images/icons/google_icon.png" width="50" height="50"></a>';
+
+            echo '</div>';
+            echo '</center>';
+            echo '<br>';
+            echo '<br>';
+            echo '<br>';
+            echo '<div class="image__overlay image__overlay--primary">';
+            echo '<div class="image__title">@' . $user . '</div>';
+            echo '<p class="image__description">' . $desc . '</p>';
+            echo '</div>';
+            echo '</div>';
         }
     } else {
         echo "0 resultados encontrados.";
     }
+    $stmt->close();
     $conn->close();
-    ?>
+?>
 
 
 <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>

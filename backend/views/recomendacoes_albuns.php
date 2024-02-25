@@ -11,7 +11,7 @@
    
 
 
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../../css/style.css">
 
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -31,7 +31,7 @@
     <center>
     <div class="container">
     <!-- Botão Bootstrap para redirecionar para o formulário -->
-    <a href="formulario.html" class="btn btn-primary">Criar Recomendação</a>
+    <a href="../../formulario.html" class="btn btn-primary">Criar Recomendação</a>
 </div>
 
 </center>
@@ -76,9 +76,9 @@
                 echo '<p style="color:white;">Recomendado por <a class="reference" href="">' . $user . '</a></p>';
                 echo '<center>';
                 echo '<div class="icons2">';
-                echo '<a href="' . $spotify_reclink . '"><img src="spotify.png"></a>';
+                echo '<a href="' . $spotify_reclink . '"><img src="../../images/icons/spotify.png"></a>';
               
-                echo '<a href="' . $reclink_deezer . '"><img src="deezer_f.png"></a>';
+                echo '<a href="' . $reclink_deezer . '"><img src="../../images/icons/deezer_f.png"></a>';
                 echo '</div>';
                 echo '</center>';
                 echo '<br>';

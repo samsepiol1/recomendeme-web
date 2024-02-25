@@ -1,0 +1,40 @@
+body {
+    background-color: black;
+    font-family: 'Roboto';
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 90%; /* Definindo a largura máxima como 90% da largura da viewport */
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1, h2, p {
+    color: white;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%; /* Garantindo que as imagens se ajustem ao tamanho da .container */
+    height: auto;
+}
+
+.container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.container ul li {
+    color: white;
+}
+
+/* Regras de mídia para ajustar o layout em telas menores */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Reduzindo o padding para telas menores */
+    }
+}

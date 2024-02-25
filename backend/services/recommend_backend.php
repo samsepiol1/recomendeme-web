@@ -179,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-header("Location: recomendacoes.php");
+header("Location: ../views/recomendacoes.php");
 exit;
 
 ?>
